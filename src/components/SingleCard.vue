@@ -23,6 +23,7 @@ export default {
     },
 
     methods: {
+        
         averageVote(){
             return Math.round(this.movie.vote_average/2);
         },  
@@ -46,7 +47,7 @@ export default {
 <template> 
     <div class="w-100 bg-dark border border-secondary my-container-card my-3" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
         <div class="img-container">
-            <div class="text-white desc" v-if="isHovered == true">
+            <div class="text-white m-3 desc" v-if="isHovered == true">
                 <h4>
                     Titolo: <span class="description-movie">{{ movie.title }}</span>
                 </h4>
@@ -66,7 +67,7 @@ export default {
                     <img class="img-flag" :src="getFlagLanguage()" :alt="this.language[languageCode]" v-if="getFlagLanguage()">
                 </div>
                 <h4>
-                    Overview: <span class="description-movie">{{ movie.overview }}</span>
+                    Overview: <span v-if="movie.overview.length > 0" class="last-message description-movie">{{ movie.overview.length > 355 ? movie.overview.slice(0, 355) + "..." : movie.overview }}</span>
                 </h4>
             </div>
             <a href="#">
@@ -107,16 +108,16 @@ export default {
 }
 
 .desc{
+    height: 500px;
     position: absolute;
     top: 0px;
-    left: 10px;
+    left: 0;
     opacity: 0;
     transition: all 0.2s ease-in-out;
 }
 
 .img-container:hover .desc {
     opacity: 1;
-    top: 10px;
 }
 
 </style>

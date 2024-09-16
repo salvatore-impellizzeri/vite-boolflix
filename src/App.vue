@@ -1,7 +1,6 @@
 <script>
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
-import AppFooter from './components/AppFooter.vue';
 import { store } from './store.js';
 import axios from 'axios';
 
@@ -17,7 +16,6 @@ export default {
   components: {
     AppHeader,
     AppMain,
-    AppFooter,
   },
 
   created() {
@@ -62,9 +60,6 @@ export default {
   </div>
   <div>
     <AppMain />
-  </div>
-  <div>
-    <AppFooter />
   </div>
 </template>
 
