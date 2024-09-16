@@ -8,7 +8,8 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      baseUrl: 'https://api.themoviedb.org/3/search/movie?api_key=4f7b343b6ae5c0e611d4ac0344a06a81',
+      movieUrl: 'https://api.themoviedb.org/3/search/movie?api_key=4f7b343b6ae5c0e611d4ac0344a06a81',
+      seriesUrl: 'https://api.themoviedb.org/3/search/tv?api_key=4f7b343b6ae5c0e611d4ac0344a06a81',
       store,
     }
   },
@@ -22,14 +23,22 @@ export default {
   methods: {
     callApi(){
       axios
-        .get(this.baseUrl + "&query=" + store.SearchInput)
+        .get(this.movieUrl + "&query=" + store.SearchInput)
         .then((res) => {
           this.store.MovieList = res.data.results;
-          console.log(res.data.results);
         })
         .catch((err) => {
           console.error('Errore durante la chiamata API:', err);
         });
+
+      axios
+        .get(this.seriesUrl + "&query=" + store.SearchInput)
+        .then((response) => {
+          this.store.SeriesList = response.data.results;
+        })
+        .catch((err) => {
+          console.error('Errore durante la chiamata API:', err);
+        });  
     }
   },
 }

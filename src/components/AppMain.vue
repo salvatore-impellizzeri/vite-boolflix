@@ -25,7 +25,7 @@ export default {
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .bg-main{
     background-color: gray;
     min-height: 500px;
