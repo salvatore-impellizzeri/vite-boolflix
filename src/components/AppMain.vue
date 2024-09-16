@@ -26,9 +26,9 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+
 .bg-main{
-    background-color: gray;
-    min-height: 500px;
+    background-color: rgb(34, 34, 34);
 }
 
 .my-container-cards{

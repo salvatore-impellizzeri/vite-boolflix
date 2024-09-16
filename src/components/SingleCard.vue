@@ -23,6 +23,10 @@ export default {
     },
 
     methods: {
+        averageVote(){
+            return Math.round(this.movie.vote_average/2);
+        },  
+
         getFlagLanguage(){
             const languageCode = this.movie.original_language.toUpperCase();
             return this.language[languageCode] || "";
@@ -43,60 +47,76 @@ export default {
     <div class="w-100 bg-dark border border-secondary my-container-card my-3" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
         <div class="img-container">
             <div class="text-white desc" v-if="isHovered == true">
-                <h3>
-                    {{ movie.title }}
-                </h3>
-                <h3>
-                    {{ movie.original_title }}
-                </h3>
-                <div>
-                    <img :src="getFlagLanguage()" :alt="this.language[languageCode]" v-if="getFlagLanguage()">
+                <h4>
+                    Titolo: <span class="description-movie">{{ movie.title }}</span>
+                </h4>
+                <h4>
+                    Titolo originale: <span class="description-movie">{{ movie.original_title }}</span>
+                </h4>
+                <h4>
+                    Voto: 
+                    <span v-for="index in 5" :key="index">
+                        <i class="fa-star" :class="averageVote() >= index ? 'fa-solid' : 'fa-regular'"></i>
+                    </span> 
+                </h4>
+                <div class="d-flex align-items-center gap-3">
+                    <h4>
+                        Lingua originale:
+                    </h4>
+                    <img class="img-flag" :src="getFlagLanguage()" :alt="this.language[languageCode]" v-if="getFlagLanguage()">
                 </div>
-                <h3>
-                    {{ movie.vote_average }}
-                </h3>
+                <h4>
+                    Overview: <span class="description-movie">{{ movie.overview }}</span>
+                </h4>
             </div>
             <a href="#">
-                <img :src="`https://image.tmdb.org/t/p/original${movie.poster_path}`" class="w-100" alt="movie.title">
+                <img :src="`https://image.tmdb.org/t/p/original${movie.poster_path}`" class="w-100 img-bg" alt="movie.title">
             </a>
         </div>
     </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
+
+.fa-solid{
+    color: rgb(214, 214, 0);
+}
 
 .my-container-card{
-    height: 600px;
     cursor: pointer;
-    position: relative;
-
-    .img-container{
-        height: 600px;
-        position: relative;
-
-        img{
-            height: 100%;
-            object-fit: cover;
-            transition: all 0.2s ease-in-out;
-        }
-       
-        img:hover{
-            opacity: 0.05;
-            filter: blur(3px);
-        }
-    }
-
-    .desc{
-        position: absolute;
-        top: 0px;
-        left: 10px;
-        opacity: 0;
-        transition: all 0.2s ease-in-out;
-    }
-
-    .img-container:hover .desc {
-        opacity: 1;
-        top: 10px;
-    }
 }
+
+.img-flag{
+    width: 40px;
+}
+
+.img-container{
+    position: relative;
+    height: 600px; 
+}
+
+.img-bg{
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.2s ease-in-out;
+}
+
+.img-container:hover .img-bg{
+    opacity: 0.05;
+    filter: blur(3px);
+}
+
+.desc{
+    position: absolute;
+    top: 0px;
+    left: 10px;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+}
+
+.img-container:hover .desc {
+    opacity: 1;
+    top: 10px;
+}
+
 </style>

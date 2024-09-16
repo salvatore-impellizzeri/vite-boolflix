@@ -20,6 +20,18 @@ export default {
     AppFooter,
   },
 
+  created() {
+    axios
+      .get('https://api.themoviedb.org/3/trending/all/day?language=it-IT')
+      .then((res) => {
+          this.store.moviesList = res.data.results;
+          console.log(res.data.results, typeof res.data);
+      })
+      .catch((error) => {
+          console.error(error)
+      })
+  },  
+
   methods: {
     callApi(){
       axios
