@@ -7,9 +7,10 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      movieUrl: 'https://api.themoviedb.org/3/search/movie?api_key=4f7b343b6ae5c0e611d4ac0344a06a81',
-      seriesUrl: 'https://api.themoviedb.org/3/search/tv?api_key=4f7b343b6ae5c0e611d4ac0344a06a81',
+      moviesUrl: 'https://api.themoviedb.org/3/search/movie?api_key=',
+      seriesUrl: 'https://api.themoviedb.org/3/search/tv?api_key=',
       store,
+      apiKey: '4f7b343b6ae5c0e611d4ac0344a06a81',
     }
   },
 
@@ -19,44 +20,46 @@ export default {
   },
 
   created() {
-    axios
-      .get('https://api.themoviedb.org/3/trending/all/day?language=it-IT')
-      .then((res) => {
-          this.store.moviesList = res.data.results;
-          console.log(res.data.results, typeof res.data);
-      })
-      .catch((error) => {
-          console.error(error)
-      })
+    // axios
+    //   .get(`https://api.themoviedb.org/3/trending/all/day?4f7b343b6ae5c0e611d4ac0344a06a81&language=it-IT`)
+    //   .then((res) => {
+    //       this.store.moviesList = res.data.results;
+    //       console.log(res.data.results, typeof res.data);
+    //   })
+    //   .catch((error) => {
+    //       console.error(error)
+    //   })
   },  
 
   methods: {
-    callApi(){
+    search() {
       axios
-        .get(this.movieUrl + "&query=" + store.SearchInput)
+        .get(this.moviesUrl + this.apiKey + "&query=" + store.SearchInput)
         .then((res) => {
-          this.store.MovieList = res.data.results;
+          this.store.MoviesList = res.data.results;
         })
         .catch((err) => {
           console.error('Errore durante la chiamata API:', err);
         });
 
       axios
-        .get(this.seriesUrl + "&query=" + store.SearchInput)
+        .get(this.seriesUrl + this.apiKey + "&query=" + store.SearchInput)
         .then((response) => {
           this.store.SeriesList = response.data.results;
+          console.log(this.store.SeriesList)
         })
         .catch((err) => {
           console.error('Errore durante la chiamata API:', err);
-        });  
-    }
-  },
+        });
+    },
+  }
 }
+
 </script>
 
 <template> 
   <div>
-    <AppHeader @searchingEvent="callApi"/>
+    <AppHeader @search="search"/>
   </div>
   <div>
     <AppMain />

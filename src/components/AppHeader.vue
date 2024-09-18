@@ -10,10 +10,7 @@ export default {
   },
 
   methods: {
-    searchEvent(){
-      if(this.store.SearchInput.length > 0)
-      this.$emit('searchingEvent');
-    }
+
   }
 
 }
@@ -26,9 +23,9 @@ export default {
         <img src="https://image.tmdb.org/t/p/w200/wwemzKWzjKYJFfCeiB57q3r4Bcm.png" alt="">
       </div>
       <div class="col-6 d-flex justify-content-end">
-        <form @submit.prevent="searchEvent()">
+        <form @submit.prevent="search">
           <input type="search" v-model="store.SearchInput" class="me-3" placeholder="Cerca un film...">
-          <button type="submit">Search</button>
+          <button @click="search" type="submit">Cerca</button>
         </form>
       </div>
     </div>

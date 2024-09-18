@@ -5,7 +5,27 @@ export default {
   data() {
     return {
         store,
-        language: {
+        isHovered: false,
+    }
+  },
+
+    props: {
+      title: String,
+      originalTitle: String,
+      language: String,
+      vote: Number,
+      overview: String,
+      image: String,
+    },
+
+    methods: {
+        
+        averageVote(){
+            return Math.round(this.vote/2);
+        },  
+
+        getFlagLanguage(){
+            const languageCodes = {
                 ES: "https://flagsapi.com/ES/flat/64.png",
                 EN: "https://flagsapi.com/GB/flat/64.png",
                 JA: "https://flagsapi.com/JP/flat/64.png",
@@ -13,46 +33,33 @@ export default {
                 DE: "https://flagsapi.com/DE/flat/64.png",
                 FR: "https://flagsapi.com/FR/flat/64.png",
                 RU: "https://flagsapi.com/RU/flat/64.png",
-        },
-        isHovered: false,
-    }
-  },
-
-    props: {
-      movie: Object,
-    },
-
-    methods: {
-        
-        averageVote(){
-            return Math.round(this.movie.vote_average/2);
-        },  
-
-        getFlagLanguage(){
-            const languageCode = this.movie.original_language.toUpperCase();
-            return this.language[languageCode] || "";
+            };
+            const languageCode = this.language.toUpperCase();
+            return languageCodes[languageCode] || "";
         },
 
         handleMouseEnter() {
         this.isHovered = true;
+        console.log("Mouse entered")
         },
 
         handleMouseLeave() {
         this.isHovered = false;
+        console.log("Mouse Left")
         },
     }
 }
 </script>
 
 <template> 
-    <div class="w-100 bg-dark border border-secondary my-container-card my-3" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
+    <div class="w-100 bg-dark border border-secondary my-container-card my-3" @mouseenter="handleMouseEnter()" @mouseleave="handleMouseLeave()">
         <div class="img-container">
             <div class="text-white m-3 desc" v-if="isHovered == true">
                 <h4>
-                    Titolo: <span class="description-movie">{{ movie.title }}</span>
+                    Titolo: <span>{{ title }}</span>
                 </h4>
                 <h4>
-                    Titolo originale: <span class="description-movie">{{ movie.original_title }}</span>
+                    Titolo originale: <span>{{ originalTitle }}</span>
                 </h4>
                 <h4>
                     Voto: 
@@ -64,14 +71,14 @@ export default {
                     <h4>
                         Lingua originale:
                     </h4>
-                    <img class="img-flag" :src="getFlagLanguage()" :alt="this.language[languageCode]" v-if="getFlagLanguage()">
+                    <img class="img-flag" :src="getFlagLanguage()" :alt="this.language" v-if="getFlagLanguage()">
                 </div>
                 <h4>
-                    Overview: <span v-if="movie.overview.length > 0" class="last-message description-movie">{{ movie.overview.length > 355 ? movie.overview.slice(0, 355) + "..." : movie.overview }}</span>
+                    Overview: <span v-if="overview.length > 0" class="last-message">{{ overview.length > 355 ? overview.slice(0, 355) + "..." : overview }}</span>
                 </h4>
             </div>
             <a href="#">
-                <img :src="`https://image.tmdb.org/t/p/original${movie.poster_path}`" class="w-100 img-bg" alt="movie.title">
+                <img :src="`https://image.tmdb.org/t/p/original${image}`" class="w-100 img-bg" :alt="title">
             </a>
         </div>
     </div>
