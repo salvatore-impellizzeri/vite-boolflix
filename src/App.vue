@@ -61,7 +61,7 @@ export default {
   <div>
     <AppHeader @search="search"/>
   </div>
-  <div>
+  <div class="bg">
     <AppMain />
   </div>
 </template>
@@ -69,6 +69,9 @@ export default {
 <style lang="scss">
 @import "bootstrap/scss/bootstrap";
 
+.bg{
+  background-color: #121212;
+}
 
 </style>
 
