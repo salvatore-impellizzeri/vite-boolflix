@@ -74,7 +74,6 @@ export default {
 .bg-main {
   background-color: rgb(34, 34, 34);
   padding: 20px;
-  border-radius: 10px;
 }
 
 .col-2 {
