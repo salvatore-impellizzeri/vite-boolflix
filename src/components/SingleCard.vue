@@ -77,24 +77,26 @@ export default {
 <style scoped>
 
 .card-container {
+    width: 100%;
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card-container:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 16px rgba(0, 0, 0, 0.3);
 }
 
 .img-container {
+    width: 100%;
     position: relative;
     height: 600px;
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .img-bg {

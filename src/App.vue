@@ -1,8 +1,8 @@
 <script>
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
-import { store } from './store.js';
 import axios from 'axios';
+import { store } from './store.js';
 
 export default {
   data() {
@@ -11,6 +11,7 @@ export default {
       seriesUrl: 'https://api.themoviedb.org/3/search/tv?api_key=',
       store,
       apiKey: '4f7b343b6ae5c0e611d4ac0344a06a81',
+      token: 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZjdiMzQzYjZhZTVjMGU2MTFkNGFjMDM0NGEwNmE4MSIsIm5iZiI6MTcyNjQ4NDkwNS4xNTY1NTQsInN1YiI6IjY2ZTdmYTVjMDUwZjE0ZTRmY2NmZTk5MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Nn8FnahEX-u0kxqw8GDJ56eLeuIwwMzVY7Z99QUvXLU',
     }
   },
 
@@ -20,15 +21,18 @@ export default {
   },
 
   created() {
-    // axios
-    //   .get(`https://api.themoviedb.org/3/trending/all/day?4f7b343b6ae5c0e611d4ac0344a06a81&language=it-IT`)
-    //   .then((res) => {
-    //       this.store.moviesList = res.data.results;
-    //       console.log(res.data.results, typeof res.data);
-    //   })
-    //   .catch((error) => {
-    //       console.error(error)
-    //   })
+    axios
+    axios.get('https://api.themoviedb.org/3/trending/tv/week?language=it-IT', {
+        headers: {
+            'Authorization': `Bearer ${this.token}`
+        }
+    })
+    .then((res) => {
+        this.store.bestList = res.data.results;
+    })
+    .catch((error) => {
+        console.log(error);
+    })
   },  
 
   methods: {
@@ -59,9 +63,9 @@ export default {
 
 <template> 
   <div>
-    <AppHeader @search="search"/>
+    <AppHeader class="header" @search="search"/>
   </div>
-  <div class="bg">
+  <div>
     <AppMain />
   </div>
 </template>
@@ -69,8 +73,9 @@ export default {
 <style lang="scss">
 @import "bootstrap/scss/bootstrap";
 
-.bg{
-  background-color: #121212;
+
+.header{
+  position: relative;
 }
 
 </style>

@@ -45,19 +45,11 @@ export default {
 </script>
 
 <template>
-  <div class="container-fluid">
-    <div class="bg-header row py-4 px-4 align-items-center">
-      <div class="col-4 fw-medium">
+  <div class="container-fluid header-box">
+    <div class="bg-header row py-3 px-4 align-items-center">
+      <div class="col-6 p-0 fw-medium d-flex gap-5">
         <img src="https://image.tmdb.org/t/p/w200/wwemzKWzjKYJFfCeiB57q3r4Bcm.png" alt="">
-      </div>
-      <div class="col-4 d-flex justify-content-end">
-        <form @submit.prevent="search" class="w-100">
-          <input type="search" v-model="store.SearchInput" class="me-3 w-75" placeholder="Cerca un film...">
-          <button @click="search" class="btn btn-light fw-medium" type="submit">Cerca</button>
-        </form>
-      </div>
-      <div class="col-4 d-flex justify-content-end">
-        <ul class="nav gap-4 justify-content-end">
+        <ul class="nav gap-4">
           <li class="nav-item" v-for="(link, index) in links" key="index">
             <a :href="link.href" @click="toggleLink(index)" :class="{ 'active-text' : active === index }">
               {{ link.label }}
@@ -65,13 +57,24 @@ export default {
           </li>
         </ul>
       </div>
+      <div class="col-6">
+        <form @submit.prevent="search" class="w-100 d-flex justify-content-end">
+          <input type="search" v-model="store.SearchInput" class="me-3 w-50" placeholder="Cerca un film...">
+          <button @click="search" class="btn btn-light fw-medium" type="submit">Cerca</button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss">
+
+.header-box{
+  box-shadow: 0px 2px 5px black;
+}
+
 .bg-header {
-  background-color: black;
+  background-color: rgb(15, 15, 15);
 }
 
 input{
@@ -105,6 +108,15 @@ li > a{
   height: 100%;
   display: flex;
   align-items: center;
+  transition: all 0.1s ease-in-out;
+}
+
+li > a:hover{
+  color: rgb(209, 209, 209);
+}
+
+img{
+  width: 100px;
 }
 
 </style>
